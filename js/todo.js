@@ -4,7 +4,8 @@ const toDoList = document.getElementById("todo-list");
 
 const TODOS_KEY = "todos";
 
-const toDos = [];
+let toDos = [];
+// => 새로 작성시 기존에 있던 todo를 유지하기 위해 변경
 
 function saveToDos() {
   localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
@@ -38,15 +39,11 @@ function handleToDoSubmit(event) {
 
 toDoForm.addEventListener("submit", handleToDoSubmit);
 
-// function sayHello(item) {
-//   console.log("This is the turn of ", item);
-// }
-
 const savedToDos = localStorage.getItem(TODOS_KEY);
 
 if (savedToDos !== null) {
   const parsedToDos = JSON.parse(savedToDos);
-  console.log(parsedToDos);
-  // parsedToDos.forEach(sayHello);
-  parsedToDos.forEach((item) => console.log("This is the turn of ", item));
+  toDos = parsedToDos;
+  // => 기존에 있던 toDo를 복원
+  parsedToDos.forEach(paintToDo);
 }
